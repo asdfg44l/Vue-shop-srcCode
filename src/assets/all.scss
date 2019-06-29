@@ -1,0 +1,10 @@
+@import '~bootstrap/scss/functions';
+@import './helpers/variables';
+@import '~bootstrap/scss/bootstrap';
+
+@import './helpers/dashboard';
+@import './helpers/client';
+
+body, html{
+    font-family: "Microsoft JhengHei",'Courier New', Courier, monospace;
+}

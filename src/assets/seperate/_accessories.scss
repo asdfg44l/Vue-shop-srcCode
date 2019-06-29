@@ -1,0 +1,82 @@
+/*accessories*/
+.demo{
+    position: relative;
+    max-width: 100%;
+    height: 300px;
+    background-image: url('~@/assets/img/tiny/modern.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.accessBanner{
+    background-image: url('~@/assets/img/tiny/product001.jpg');
+    height: 400px; 
+    background-position: center 90%
+}
+@media(min-width:767.98px){
+    .demo{
+        position: relative;
+        max-width: 100%;
+        height: 500px;
+        background-image: url('~@/assets/img/tiny/modern.jpg');
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
+.partIntro{
+    position: absolute;
+    &.glass{
+        color: red;
+        top:20%;
+        right:25%;
+    }
+    &.containBox{
+        top:25%;
+        left: 12%;
+    }
+    &.turbo{
+        top:60%;
+        left:40%;
+    }
+    &.seat{
+        top:35%;
+        left:30%;
+    }
+}
+.partDot{
+    width: 15px; 
+    height: 15px; 
+    line-height: 12px; 
+    font-size: 1rem;
+    
+}
+
+@media(min-width:576px){
+ .partIntro{
+    &.glass{
+        color: red;
+        top:18%;
+        right:32%;
+    }
+    &.containBox{
+        top:28%;
+        left: 20%;
+    }
+    &.turbo{
+        top:60%;
+        left:40%;
+    }
+    &.seat{
+        top:35%;
+        left:30%;
+    }
+ }
+ .partDot{
+    width: 26px; 
+    height: 26px; 
+    line-height: 22px; 
+    font-size: 1.5rem;
+ }
+    
+}

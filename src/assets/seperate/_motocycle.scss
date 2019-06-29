@@ -1,0 +1,48 @@
+.bg-none{
+    background-image: none;
+}
+.mainLogo{
+    background-image: url('~@/assets/img/tiny/suzuki-bigLogo.jpg');
+    width: 150px;
+    background-position: center center;
+    background-size: cover;
+}
+.carousel-item img{
+    width: 100%;
+    height: 300px;
+}
+@media(min-width:414px){
+    .carousel-item img{
+        width: 100%;
+        height: 350px;
+    }
+}
+@media(min-width:768px){
+    .carousel-item img{
+        width: 50%;
+        height: 450px;
+    }
+}
+.carousel-indicators{
+    position:unset;
+}
+.carousel-indicators li{
+    background-color: transparent;
+    text-align: center;
+    font-weight: bold;
+    text-indent: unset;
+}
+.carousel-indicators .active{
+    font-size: 2rem;
+}
+.motoAddCart{
+  position: relative;
+  z-index: 10;
+}
+.introTitle{
+    font-size: 0.75rem;
+}
+.introContent{
+    font-size: 1.25rem;
+    font-weight: bold;
+}

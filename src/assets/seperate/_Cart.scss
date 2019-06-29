@@ -1,0 +1,35 @@
+/*cart*/
+.cart-list{
+    border:none;
+    .total-price {
+      width: 100%;
+      border-top: 1px solid grey;
+      border-bottom: 1px solid grey;
+    }
+    .cart-pic{
+      width: 50%;
+      height: 150px;
+    }
+    .cart-title{
+      line-height: 1.3em;
+    }
+    .number-control{
+      width: 100%;
+    }
+}
+@media(min-width:768px){
+    .cart-list{
+      border-bottom:1px solid grey;
+      .number-control{
+        width: auto;
+      }
+      .cart-pic{
+        width: 150px;
+      }
+      .total-price{
+        width: 25%;
+        border: 0;
+      }
+    }
+    
+}

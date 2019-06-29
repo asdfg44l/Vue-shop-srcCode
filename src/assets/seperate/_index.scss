@@ -1,0 +1,107 @@
+/* index*/
+.banner{
+    position: relative;
+    background-image: url('~@/assets/img/tiny/suzuki-sv650.jpg');
+    background-size: cover;
+    background-position: center center;
+    .banner-cover{
+      position: absolute;
+      top:0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, .3);
+      z-index: 8;
+    }
+    .banner-content{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+    }
+}  
+.slogan-content{
+    font-family: Century-Gothic,'Segoe UI', Verdana, Geneva, Tahoma, sans-serif;
+    width: 100%;
+    .slogan-title{
+    //   color: #F5DEB3;
+      letter-spacing: 0.1em;
+      font-size: 40px;
+    }
+    .slogan-subtitle{
+      color: rgba(255, 255, 255, .5);  
+      letter-spacing: 0.1em;
+      font-size: 32px;
+    }
+    .slogan-subline{
+        color: rgba(255, 255, 255, .5);
+        font-size: 18px;
+    }
+}
+  
+@media(min-width:767.98px){
+    .slogan-content{
+      width: 70%;
+      .slogan-title{
+        font-size: 5rem;
+      }
+      .slogan-subtitle{
+          font-size: 4rem;
+      }
+      .slogan-subline{
+        letter-spacing: 2px;
+        font-size: 18px;
+      }
+    }
+    
+}
+.charactor{
+    position: unset;
+    background-color: rgba(245, 222, 179, .5);
+    .charPic{
+        position: unset;
+        background-position: center center;
+        background-size: cover;
+        width: 100%;
+        height: 300px;
+    }
+}
+strong, .textContent{
+    font-size: 1rem;
+    line-height: 2em;
+}
+.animate{
+    opacity: 0;
+    transform: translateY(20px);
+    transition-property: opacity, transform;
+    transition-duration: 1s;
+}
+.fadeIn{
+    opacity: 1 !important;
+    transform: translateY(0px);
+}
+.bg-full{
+    position: absolute;
+    top:5%;
+    bottom: 5%;
+    left: 0;
+    right: 0;
+    background-color: rgba(245, 222, 179, .5);;
+}
+.leftPic{
+    right: 0;
+}
+@media(min-width:767.98px){
+        .charactor{
+        position: relative;
+        background-color: unset;
+        .charPic{
+            position: absolute;
+            height: auto;
+            top: 0;
+            bottom: 0;
+            background-position: 25% 50%;
+            background-size: cover;
+        }    
+    }
+}

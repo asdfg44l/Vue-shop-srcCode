@@ -1,0 +1,35 @@
+/* navbar*/
+.navbar{
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, .6);
+    .navbar-nav .nav-item>a{
+        color:#fff !important;
+    }
+}
+.underLine{
+    background-image:linear-gradient(#fff,#fff);
+    background-repeat:no-repeat;
+    background-size:0% 5px;
+    background-position:50% 100%;
+    transition:all 0.3s;
+    &:hover{
+      background-color:rgba(225, 225, 225, .3);
+    }
+}
+@media(min-width:767.98px){
+    .underLine:hover{
+        background-color: transparent;
+        background-size:100% 5px;
+    }
+}
+.cartBtn{
+    position: relative;
+    .badge{
+        top:3px;
+    }
+}
+.btn{
+    &.router-link-active{
+        color:#fff !important;
+    }
+}
