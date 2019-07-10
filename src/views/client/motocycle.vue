@@ -1,8 +1,7 @@
 <template>
    <div>
         <Navbar></Navbar>
-        <div class="container-fluid">
-            <div class="mainLogo py-5 mx-auto"></div>
+        <div class="container-fluid my-3">
             <div id="Motocyclecarousel" class="carousel slide" data-pause="hover">  
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-content="sv650">
@@ -31,40 +30,44 @@
                     <span class="sr-only">Next</span>
                 </a>
                 <div class="motoIntro d-flex justify-content-center">
-                    <div class="motoAddCart">
-                        <button type="button" @click.prevent="addtoCart(1)" class="btn btn-outline-info">
-                            <i class="fas fa-spinner fa-spin" v-if="status.loadingItem"></i>
-                            加入購物車
-                        </button>
-                    </div>
-                    <ul class="nav mx-auto" v-if="currentPic">
-                        <li class="nav-item mx-4">
-                            <h3 class="introTitle">Category</h3>
-                            <p class="introContent">{{ currentPic.category }}</p>
-                        </li>
-                        <li class="nav-item mx-4">
-                            <h3 class="introTitle">CYLINDER CAPACITY</h3>
-                            <p class="introContent">{{ currentPic.capacity }} CC</p>
-                        </li>
-                        <li class="nav-item mx-4">
-                            <h3 class="introTitle">POWER</h3>
-                            <p class="introContent">{{ currentPic.power }} ps</p>
-                        </li>
-                        <li class="nav-item mx-4">
-                            <h3 class="introTitle">WEIGHT</h3>
-                            <p class="introContent">{{ currentPic.weight }} KG</p>
-                        </li>
-                        <li class="nav-item mx-4">
-                            <h3 class="introTitle">PRICE</h3>
-                            <p class="introContent">$12,000 USD</p>
-                        </li>
-                    </ul>
                     <ol class="carousel-indicators justify-content-end mx-0 d-none d-md-flex">
                         <li data-target="#Motocyclecarousel" data-slide-to="0" class="active">01</li>
                         <li data-target="#Motocyclecarousel" data-slide-to="1">02</li>
                         <li data-target="#Motocyclecarousel" data-slide-to="2">03</li>
                         <li data-target="#Motocyclecarousel" data-slide-to="3">04</li>
                     </ol>
+                    <ul class="infoList nav mx-auto" v-if="currentPic">
+                        <li class="nav-item mx-3 mx-md-3">
+                            <h3 class="introTitle">Category</h3>
+                            <p class="introContent switch switchIn">{{ currentPic.category }}</p>
+                        </li>
+                        <li class="nav-item mx-3 mx-md-3">
+                            <h3 class="introTitle">CYLINDER CAPACITY</h3>
+                            <p class="introContent switch switchIn">{{ currentPic.capacity }} CC</p>
+                        </li>
+                        <li class="nav-item mx-3 mx-md-3">
+                            <h3 class="introTitle">POWER</h3>
+                            <p class="introContent switch switchIn">{{ currentPic.power }} ps</p>
+                        </li>
+                        <li class="nav-item mx-3 mx-md-3">
+                            <h3 class="introTitle">WEIGHT</h3>
+                            <p class="introContent switch switchIn">{{ currentPic.weight }} KG</p>
+                        </li>
+                        <li class="nav-item mx-3 mx-md-3">
+                            <h3 class="introTitle">PRICE</h3>
+                            <p class="introContent switch switchIn">$12,000 USD</p>
+                        </li>
+                    </ul>
+                    <div class="motoAddCart mr-lg-3">
+                        <button type="button" @click.prevent="addtoCart()" class="btn btn-info d-none d-md-inline rounded-pill">
+                            <i class="fas fa-spinner fa-spin" v-if="status.loadingItem"></i>
+                            加入購物車
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button type="button" @click.prevent="addtoCart()" class="btn btn-info d-inline d-md-none rounded-0">
+                            <i class="fas fa-shopping-basket"></i>
+                        </button>
+                    </div>           
                 </div>
             </div>
         </div>
@@ -75,11 +78,11 @@
 <script>
 import $ from 'jquery'
 
+import { mapGetters } from "vuex"
 export default {
     data(){
         return {
-            motocycles:{},
-            motoFormate:{
+            motoFormate: {
                 sv650:{
                     category: "Street",
                     capacity: "645",
@@ -105,40 +108,20 @@ export default {
                     weight: "215"
                 }
             },
-            currentPic:{},
-            cart_id:"",
-            status:{
-                loadingItem:false,
-            }
+            currentPic: {},
+            infoChanging: true,
         };
     },
     methods: {
         getMotocycles(){
-            const api=`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
-            const vm=this;
-            vm.$http.get(api).then((response) => {   
-                var datas= response.data.products;
-                for( let item in datas){
-                    if( datas[item].category === "大型重機"){
-                        vm.motocycles[datas[item].description]= datas[item];
-                    }
-                }
-                //初始 ID
-                vm.cart_id= vm.motocycles['sv650'].id;
-            })
+            this.$store.dispatch('getProducts', "大型重機");
         },
-        addtoCart( qty=1){
-            const api=`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-            const vm=this;
-            const cart={
-                "product_id":"-Li8J6-1Zh7r9eN2aday",
-                qty,
-            }
-            vm.status.loadingItem=true;
-            vm.$http.post(api, {data: cart}).then(() => {   
-                vm.status.loadingItem=false;
-            })
+        addtoCart(id= this.$store.state.cart_id , qty=1){
+           this.$store.dispatch("cartModules/addtoCart", {id, qty});
         },
+    },
+    computed: {
+        ...mapGetters(["status"]),
     },
     created() {
         this.getMotocycles();   
@@ -146,13 +129,22 @@ export default {
     },
     mounted(){
         const vm= this;
+        var storeState= this.$store.state;
+        //隨著圖片更換變更商品 id 以及商品資訊
         $('#Motocyclecarousel').on('slide.bs.carousel', function (event) {
            var name= event.relatedTarget.dataset['content'];
-           if(vm.motocycles){
-               vm.cart_id= vm.motocycles[name].id;
+           $(".introContent").removeClass("switchIn");
+           if(storeState.motocycles){
+               const currentItem= storeState.motocycles.find((item) => {
+                   return item.description === name ;
+               });
+               vm.$store.commit('CARTID', currentItem.id);             
            }
+           setTimeout(function(){
+               $(".introContent").addClass("switchIn");
+           },500)
            vm.currentPic= vm.motoFormate[name];
-        })   
+        })
     },
 }
 </script>

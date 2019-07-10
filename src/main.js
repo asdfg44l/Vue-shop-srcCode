@@ -14,7 +14,7 @@ import 'bootstrap';
 import "./bus";
 import App from './App.vue'
 import router from './router'
-
+import store from './store'
 
 Vue.config.productionTip = false;
 axios.defaults.withCredentials= true;
@@ -43,6 +43,7 @@ Vue.filter('time',timeFilter);
 
 new Vue({
   router,
+  store,
   i18n,
   render: h => h(App)
 }).$mount('#app');
@@ -54,7 +55,6 @@ router.beforeEach((to, from, next) => {
     const api=`${process.env.VUE_APP_APIPATH}/api/user/check`;
     axios.post(api).then((response) => {
       if(response.data.success){
-        console.log("success login");
         next();
       }else{
         next({path:"/login"})

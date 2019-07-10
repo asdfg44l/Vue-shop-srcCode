@@ -2,7 +2,7 @@
   <div>
     <loading :active.sync="isLoading"></loading>
     <div class="row mt-3">
-      <div class="col-md-4 mb-4" v-for="item in products" ::key="item.id">
+      <div class="col-md-4 mb-4" v-for="item in products" :key="item.id">
         <div class="card border-0 shadow-sm">
             <div style="height: 150px; background-size: cover; background-position: center"
             :style="{backgroundImage: `url(${item.imageUrl})`}">
@@ -256,7 +256,7 @@
                 const api=`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
                 const vm=this;
                 vm.isLoading=true;
-                vm.$http.delete(api).then((response) => {   
+                vm.$http.delete(api).then(() => {   
                     vm.getCarts();
                     vm.isLoading=false;
                 })
@@ -269,8 +269,7 @@
                     "code":vm.coupon
                 }
                 vm.isLoading=true;
-                vm.$http.post(api, {data: coupon}).then((response) => {   
-                    console.log('coupon: ',response)
+                vm.$http.post(api, {data: coupon}).then(() => {   
                     vm.getCarts();
                     vm.isLoading=false;
                 })
@@ -284,14 +283,11 @@
                     if (valid) {
                         // do stuff if valid.
                         vm.$http.post(api, {data: vm.form, message:"okok"}).then((response) => { 
-                            console.log(response)  
                             if(response.data.success){
                               vm.$router.push(`/custom_checkout/${response.data.orderId}`);
                             }
                             vm.isLoading=false;
                         })
-                    }else{
-                      console.log('表單不完整');
                     }
                 }); 
             },

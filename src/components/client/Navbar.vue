@@ -43,23 +43,17 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data(){
     return {
-      cartLength:0,
     };
   },
   methods: {
-    getCarts(){
-        const api=`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-        const vm=this;
-        vm.isLoading=true;
-        vm.$http.get(api).then((response) => {  
-            var data= response.data.data;
-            vm.cartLength= data.carts.length;
-            vm.isLoading=false;
-        })    
-    },
+    ...mapActions("cartModules", ['getCarts']),
+  },
+  computed: {
+    ...mapGetters("cartModules", ['cartLength']),
   },
   created() {
     this.getCarts();

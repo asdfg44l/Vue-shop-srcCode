@@ -51,25 +51,21 @@
                     </div>  
                 </div>
                 <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-md-4 col-lg-6 mb-2" v-if="filterData" v-for="item in filterData" :key="item.id"> 
+                    <div class="row" v-if="filterData">
+                        <div class="col-md-4 col-lg-6 mb-2" v-for="item in filterData" :key="item.id"> 
                             <div class="card h-100">
                                 <img :src="`${item.imageUrl}`" class="card-img-top" style="height:200px;">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ item.title }}</h5>
-                                    <p class="text-primary">原價: {{ item.origin_price }}</p>
+                                    <p :class='{"text-line-through" : item.price !== item.origin_price, "text-info" : item.price == item.origin_price }'>原價: {{ item.origin_price }}</p>
                                     <strong v-if="item.price !== item.origin_price" class="text-danger">特價: {{ item.price }}</strong>
                                 </div>
-                                <div class="p-3 d-flex justify-content-between">
-                                  <button type="button" class="btn btn-outline-secondary btn-sm" @click="getProduct(item.id)">
-                                    <i class="fas fa-spinner fa-spin" v-if="status.loadingItem"></i>
-                                    查看詳情
-                                  </button>
-                                  <button type="button" class="btn btn-outline-info btn-sm" @click="addtoCart(item.id)">
-                                    <i class="fas fa-spinner fa-spin" v-if="status.loadingItem"></i>
+                                
+                                <button type="button" class="btn btn-block btn-info btn-sm" @click="addtoCart(item.id)">
+                                    <i class="fas fa-shopping-basket"></i>
                                     加入購物車
-                                  </button>
-                                </div>
+                                    <i class="fas fa-spinner fa-spin" v-if="item.id === status.loadingItem"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -123,68 +119,33 @@
 </template>
 
 <script>
-import $ from 'jquery'
+import $ from 'jquery';
+import { mapGetters } from 'vuex';
 
 export default {
     data(){
         return {
-            Accessories:[],
-            filterData:[],
             product:{},
-            status:{
-                loadingItem:"",
-            },
         };
     },
 
     methods:{
-        getAccessories(page=1){
-            const api=`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`;
-            const vm=this;
-            vm.isLoading=true;
-            vm.$http.get(api).then((response) => { 
-                vm.Accessories=response.data.products.filter((item) =>{
-                    return item.category === '選購配件';
-                });
-                vm.isLoading=false;
-                vm.filterData = vm.Accessories;
-            })
+        getAccessories(){
+            this.$store.dispatch('getProducts', '選購配件');
         },
         filterItem(filter){
-            var vm= this;
-            vm.filterData= vm.Accessories.filter((item) =>{
-                return item.description === filter;
-            });
+            this.$store.dispatch('filterItem', filter);
         },
         addtoCart(id, qty=1){
-            const api=`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-            const vm=this;
-            const cart={
-                "product_id":id,
-                qty,
-            }
-            vm.status.loadingItem=id;
-            vm.$http.post(api, {data: cart}).then((response) => {   
-                vm.product=response.data.product;
-                $("#Accessory").modal("hide");
-                vm.status.loadingItem="";
-            })
-        },
-        getProduct(id){
-            const api=`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
-            const vm=this;
-            vm.status.loadingItem=id;
-            vm.$http.get(api).then((response) => {      
-                vm.product=response.data.product;
-                $("#Accessory").modal("show");
-                vm.status.loadingItem="";
-            })
+            var src= 'accessories';
+            this.$store.dispatch("cartModules/addtoCart", {id, qty, src})
         },
     },
-
+    computed: {
+        ...mapGetters(["isLoading", 'Accessories', 'filterData', 'status'])
+    },
     created() {
-        const vm= this;
-        vm.getAccessories();  
+        this.getAccessories();  
     },
 }
 </script>

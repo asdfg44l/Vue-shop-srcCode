@@ -1,6 +1,9 @@
 .bg-none{
     background-image: none;
 }
+.text-line-through {
+    text-decoration: line-through;
+}
 .mainLogo{
     background-image: url('~@/assets/img/tiny/suzuki-bigLogo.jpg');
     width: 150px;
@@ -38,11 +41,25 @@
 .motoAddCart{
   position: relative;
   z-index: 10;
+  .btn {
+      padding: 0.5rem 1rem 0.5rem 1rem;
+  }
 }
 .introTitle{
     font-size: 0.75rem;
 }
 .introContent{
     font-size: 1.25rem;
-    font-weight: bold;
+    font-weight: bold;  
+}
+.switch {
+    opacity: 0;
+    transform: translateY(20px);
+    transition-duration: 0s;
+}
+.switchIn {
+    opacity: 1 !important;
+    transform: translateY(0px);
+    transition-property: opacity, transform;
+    transition-duration: 1s;
 }

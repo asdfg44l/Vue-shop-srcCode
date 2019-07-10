@@ -22,7 +22,7 @@
                                 </div>
                             </div> 
                             <div class="total-price d-flex py-2 border-sweetlight align-items-center justify-content-end justify-content-md-around" >
-                                <span class="h4 text-sweet text-center font-weight-bold mb-0 mr-md-2">{{ data.final_total }}</span>
+                                <span class="h4 text-sweet text-center font-weight-bold mb-0 mr-md-2">{{ data.final_total | currencyFilter }}</span>
                                 <button class="btn btn-outline-danger d-none d-md-inline" @click="removeCartItem(data.id)">
                                     <i class="far fa-trash-alt"></i>
                                 </button>
@@ -44,15 +44,15 @@
                         <tbody>
                             <tr>
                                 <td>原價</td>
-                                <td class="text-right">{{ cartInfo.total }}</td>
+                                <td class="text-right">{{ cartInfo.total | currencyFilter }}</td>
                             </tr>
                             <tr v-if="cartInfo.total !== cartInfo.final_total">
                                 <td class="border-0">折扣金額</td>
-                                <td class="text-right text-danger border-0">- {{ cartInfo.total - cartInfo.final_total }}</td>
+                                <td class="text-right text-danger border-0">- {{ (cartInfo.total - cartInfo.final_total) | currencyFilter }}</td>
                             </tr>
                             <tr>
                                 <td class="font-lg border-0">小計</td>
-                                <td class="text-right font-lg border-0">{{ cartInfo.final_total }}</td>
+                                <td class="text-right font-lg border-0">{{ cartInfo.final_total | currencyFilter }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -64,33 +64,19 @@
 </template>
 
 <script>
-
+import { mapGetters } from "vuex"
 export default {
     data(){
         return {
-            cartInfo:{},
             coupon:"",
-            isLoading:false,
         };
     },
     methods: {
         removeCartItem(id){
-            const api=`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
-            const vm=this;
-            vm.isLoading=true;
-            vm.$http.delete(api).then(() => {  
-                vm.getCarts(); 
-                vm.isLoading=false;
-            })
+            this.$store.dispatch('cartModules/removeCartItem', id);
         },
         getCarts(){
-            const api=`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-            const vm=this;
-            vm.isLoading=true;
-            vm.$http.get(api).then((response) => {  
-                vm.cartInfo= response.data.data;
-                vm.isLoading=false;
-            })    
+            this.$store.cartModules.dispatch('getCarts');  
         },
         addCoupon(){
             const api=`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
@@ -98,16 +84,19 @@ export default {
             const coupon={
                 "code": vm.coupon
             }
-            vm.isLoading=true;
-            vm.$http.post(api, {data: coupon}).then((response) => {   
+            vm.$store.commit("ISLOADING", true);
+            vm.$http.post(api, {data: coupon}).then(() => {   
                 vm.getCarts();
-                vm.isLoading=false;
+                vm.$store.commit("ISLOADING", false);
             })
         },
     },
+    computed: {
+        ...mapGetters(["isLoading"]),
+        ...mapGetters("cartModules", ["cartInfo"]),
+    },
     created() {
-        const vm= this;
-        vm.getCarts();
+        this.getCarts();
     },
 }
 </script>

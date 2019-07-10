@@ -62,13 +62,13 @@
                     <tr v-for="cart in cartInfo.carts" :key="cart.id">
                         <td>{{ cart.product.title }}</td>
                         <td class="text-right">{{ cart.qty }} {{ cart.product.unit }}</td>
-                        <td class="text-right">{{ cart.total }}</td>
+                        <td class="text-right">{{ cart.total | currencyFilter }}</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <td>應付金額:</td>
-                        <td colspan="2" class="text-right">{{ cartInfo.final_total }}</td>
+                        <td colspan="2" class="text-right">{{ cartInfo.final_total | currencyFilter }}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -77,11 +77,11 @@
 </template>
 
 <script>
+    import { mapGetters } from "vuex" 
     export default {
-        props:['cartInfo'],
         data(){
             return {
-                form:{
+                form: {
                     user:{
                         name:"",
                         email:"",
@@ -105,11 +105,12 @@
                                 vm.$router.push(`/checkout/${response.data.orderId}`);
                             }
                         })
-                    }else{
-                        console.log('表單不完整');
                     }
                 }); 
             },
+        },
+        computed: {
+            ...mapGetters("cartModules", ["cartInfo"]),
         },
     }
 </script>

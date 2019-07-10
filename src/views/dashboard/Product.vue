@@ -200,7 +200,7 @@ export default {
       }else if(!vm.isNew){
         api=`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProducts.id}`;
         apiMethod="put";
-      };
+      }
       vm.$http[apiMethod](api,{data: vm.tempProducts}).then((response) => {
          if(response.data.success){
            $('#productModal').modal('hide');
@@ -208,7 +208,6 @@ export default {
            vm.getProducts();
          } else{
            vm.getProducts();
-           console.log('更新失敗');
          }
       })
     },
