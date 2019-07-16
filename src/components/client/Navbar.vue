@@ -10,12 +10,6 @@
     <div class="collapse navbar-collapse flex-row-reverse  mr-auto" id="navbarSupportedContent">
       <ul class="navbar-nav text-white d-flex flex-row justify-content-center">
           <li class="nav-item px-3 px-md-2">
-              <a class="nav-link" href="#"><i class="fas fa-search"></i></a>              
-          </li>
-          <li class="nav-item px-3 px-md-2">
-              <a class="nav-link" href="#"><i class="fas fa-star"></i></a>       
-          </li>
-          <li class="nav-item px-3 px-md-2">
                 <div class="cartBtn">
                     <span class="badge badge-success rounded-circle position-absolute">{{ cartLength }}</span>
                     <router-link to="/cart" class="btn nav-link text-white" >

@@ -22,7 +22,7 @@
                                 </div>
                             </div> 
                             <div class="total-price d-flex py-2 border-sweetlight align-items-center justify-content-end justify-content-md-around" >
-                                <span class="h4 text-sweet text-center font-weight-bold mb-0 mr-md-2">{{ data.final_total | currencyFilter }}</span>
+                                <span class="h4 text-sweet text-center font-weight-bold mb-0 mr-md-2">{{ data.final_total | currency }}</span>
                                 <button class="btn btn-outline-danger d-none d-md-inline" @click="removeCartItem(data.id)">
                                     <i class="far fa-trash-alt"></i>
                                 </button>
@@ -44,15 +44,15 @@
                         <tbody>
                             <tr>
                                 <td>原價</td>
-                                <td class="text-right">{{ cartInfo.total | currencyFilter }}</td>
+                                <td class="text-right">{{ cartInfo.total | currency }}</td>
                             </tr>
                             <tr v-if="cartInfo.total !== cartInfo.final_total">
                                 <td class="border-0">折扣金額</td>
-                                <td class="text-right text-danger border-0">- {{ (cartInfo.total - cartInfo.final_total) | currencyFilter }}</td>
+                                <td class="text-right text-danger border-0">- {{ (cartInfo.total - cartInfo.final_total) | currency }}</td>
                             </tr>
                             <tr>
                                 <td class="font-lg border-0">小計</td>
-                                <td class="text-right font-lg border-0">{{ cartInfo.final_total | currencyFilter }}</td>
+                                <td class="text-right font-lg border-0">{{ cartInfo.final_total | currency }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -76,7 +76,7 @@ export default {
             this.$store.dispatch('cartModules/removeCartItem', id);
         },
         getCarts(){
-            this.$store.cartModules.dispatch('getCarts');  
+            this.$store.dispatch('cartModules/getCarts');  
         },
         addCoupon(){
             const api=`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;

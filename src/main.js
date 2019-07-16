@@ -38,8 +38,8 @@ import timeFilter from './filters/time';
 Vue.component('Navbar',Navbar);
 Vue.component('Footer',Footer);
 Vue.component('Loading', Loading);
-Vue.filter('currency',currencyFilter);
-Vue.filter('time',timeFilter);
+Vue.filter('currency', currencyFilter);
+Vue.filter('time', timeFilter);
 
 new Vue({
   router,

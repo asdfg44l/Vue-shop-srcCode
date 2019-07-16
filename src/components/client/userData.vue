@@ -62,13 +62,13 @@
                     <tr v-for="cart in cartInfo.carts" :key="cart.id">
                         <td>{{ cart.product.title }}</td>
                         <td class="text-right">{{ cart.qty }} {{ cart.product.unit }}</td>
-                        <td class="text-right">{{ cart.total | currencyFilter }}</td>
+                        <td class="text-right">{{ cart.total | currency }}</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <td>應付金額:</td>
-                        <td colspan="2" class="text-right">{{ cartInfo.final_total | currencyFilter }}</td>
+                        <td colspan="2" class="text-right">{{ cartInfo.final_total | currency }}</td>
                     </tr>
                 </tfoot>
             </table>
