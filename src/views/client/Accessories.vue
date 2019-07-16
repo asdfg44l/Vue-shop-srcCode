@@ -61,7 +61,7 @@
                                     <strong v-if="item.price !== item.origin_price" class="text-danger">特價: {{ item.price }}</strong>
                                 </div>
                                 
-                                <button type="button" class="btn btn-block btn-info btn-sm" @click="addtoCart(item.id)">
+                                <button type="button" class="btn btn-block btn-info btn-sm" @click="addtoCart(item)">
                                     <i class="fas fa-shopping-basket"></i>
                                     加入購物車
                                     <i class="fas fa-spinner fa-spin" v-if="item.id === status.loadingItem"></i>
@@ -75,46 +75,24 @@
         <Footer></Footer>
 
         <!--Accessories-modal-->
-        <div class="modal fade" id="Accessory" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalLabel" aria-hidden="true" v-if="product">
+        <div class="modal" id="Accessories" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ product.title }}</h5>
+                    <h5 class="modal-title">購物車訊息</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <img :src="product.imageUrl" class="img-fluid" alt="">
-                    <blockquote class="blockquote mt-3">
-                        <p class="mb-0">{{ product.content }}</p>
-                        <footer class="blockquote-footer text-right">{{ product.description }}</footer>
-                    </blockquote>
-                    <div class="d-flex justify-content-between align-items-baseline">
-                    <div class="h4" v-if="!product.price">{{ product.origin_price }} USD</div>
-                    <del class="h6" v-if="product.price">原價 {{ product.origin_price }} USD</del>
-                    <div class="h4" v-if="product.price">現在只要 {{ product.price }} USD</div>
-                    </div>
-                    <select name="number" class="form-control mt-3" v-model="product.num">
-                        <option :value="num" v-for="num in 10" :key="num">
-                            選購 {{num}} {{product.unit}}
-                        </option>
-                    </select>
+                <div class="modal-body font-lg">
+                    <p>商品 <span class="text-primary" v-text="product.title"></span> 已加入購物車</p>
                 </div>
                 <div class="modal-footer">
-                    <div class="text-muted text-nowrap mr-3">
-                    小計 <strong>{{ product.num * product.price }}</strong> 元
-                    </div>
-                    <button type="button" class="btn btn-primary"
-                    @click="addtoCart(product.id, product.num)">
-                        <i class="fas fa-spinner fa-spin" v-if="product.id === status.loadingItem"></i>
-                        加到購物車
-                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
-                </div>  
-            </div>  
-        </div>  
+                </div>
+            </div>
+        </div> 
    </div>
 </template>
 
@@ -136,9 +114,11 @@ export default {
         filterItem(filter){
             this.$store.dispatch('filterItem', filter);
         },
-        addtoCart(id, qty=1){
+        addtoCart(item, qty=1){
             var src= 'accessories';
+            var id = item.id;
             this.$store.dispatch("cartModules/addtoCart", {id, qty, src})
+            this.product = item;
         },
     },
     computed: {

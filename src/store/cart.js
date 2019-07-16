@@ -28,13 +28,14 @@ export default {
                 context.commit('STATUS', true, {root : true});
             }
             
-            axios.post(api, {data: cart}).then(() => {   
+            axios.post(api, {data: cart}).then((response) => {  
                 context.dispatch('getCarts');
                 if(src === 'accessories'){
                     context.commit('STATUS', '', {root : true});
-                    $("#Accessory").modal("hide");
+                    $("#Accessories").modal("show");
                 }else{
                     context.commit('STATUS', false, {root : true});
+                    $("#cartModal").modal("show");
                 }
             })
         },

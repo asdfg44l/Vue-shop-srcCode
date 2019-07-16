@@ -11,18 +11,18 @@
                         <div class="d-flex justify-content-around flex-column flex-md-row">
                             <div class="d-flex flex-fill py-2">
                                 <div class="cart-pic bg-cover" :style='`background-image: url(${data.product.imageUrl});`'></div>
-                                <div class="cart-content flex-fill d-flex flex-column flex-md-row align-items-start justify-content-around align-items-md-center text-sweet ml-3 ml-md-0">
-                                    <div class="cart-title ml-0 ml-md-3 font-lg">
+                                <div class="cart-content flex-fill d-flex flex-column flex-md-row align-items-start justift-content-around align-items-md-center text-sweet ml-3 ml-md-0">
+                                    <div class="cart-title ml-0 ml-md-5 font-lg">
                                         <p class="font-big">{{ data.product.title }}</p>
                                         <p>{{ data.total }}</p>
                                     </div>
-                                    <div class="num">
-                                    {{ data.qty }} {{ data.product.unit }}
+                                    <div class="num ml-md-auto mr-md-5">
+                                        {{ data.qty }} {{ data.product.unit }}
                                     </div>
                                 </div>
                             </div> 
                             <div class="total-price d-flex py-2 border-sweetlight align-items-center justify-content-end justify-content-md-around" >
-                                <span class="h4 text-sweet text-center font-weight-bold mb-0 mr-md-2">{{ data.final_total | currency }}</span>
+                                <span class="h4 text-sweet text-center font-weight-bold mb-0 mr-md-2">{{ data.total | currency }}</span>
                                 <button class="btn btn-outline-danger d-none d-md-inline" @click="removeCartItem(data.id)">
                                     <i class="far fa-trash-alt"></i>
                                 </button>

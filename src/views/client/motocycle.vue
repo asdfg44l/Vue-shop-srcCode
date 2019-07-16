@@ -71,6 +71,28 @@
                 </div>
             </div>
         </div>
+        <!--addCart modal-->
+        <keep-alive>
+            <div class="modal" id="cartModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">購物車資訊</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body font-lg">
+                        <p>商品 <span class="text-primary" v-text="product"></span>已加入購物車</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </keep-alive>
+        
    </div>
     
 </template>
@@ -84,24 +106,28 @@ export default {
         return {
             motoFormate: {
                 sv650:{
+                    name: "SV650",
                     category: "Street",
                     capacity: "645",
                     power: "76",
                     weight: "195",
                 },
                 elegant:{
+                    name: "MT-09",
                     category: "elegant",
                     capacity: "847",
                     power: "92",
                     weight: "193"
                 },
                 modern:{
+                    name: "MT-03",
                     category: "modern",
                     capacity: "321",
                     power: "41",
                     weight: "170"
                 },
                 fierex:{
+                    name: "TRACER 900 GT",
                     category: "fierex",
                     capacity: "847",
                     power: "92",
@@ -110,15 +136,18 @@ export default {
             },
             currentPic: {},
             infoChanging: true,
+            product: "",
         };
     },
     methods: {
         getMotocycles(){
             this.$store.dispatch('getProducts', "大型重機");
         },
-        addtoCart(id= this.$store.state.cart_id , qty=1){
+        addtoCart( id= this.$store.state.cart_id, qty=1){
            this.$store.dispatch("cartModules/addtoCart", {id, qty});
+           this.product = this.currentPic.name;
         },
+
     },
     computed: {
         ...mapGetters(["status"]),

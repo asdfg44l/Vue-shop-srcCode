@@ -19,7 +19,23 @@
       height: 100%;
       z-index: 10;
     }
+    .scrollIn{
+      animation: floating 2s infinite;
+    }
 }  
+
+
+@keyframes floating {
+  0% {
+      transform: translateY(0px);
+  }
+  50% {
+      transform: translateY(10px);
+  }
+  100% {
+      transform: translateY(0px);
+  }
+}
 .slogan-content{
     font-family: Century-Gothic,'Segoe UI', Verdana, Geneva, Tahoma, sans-serif;
     width: 100%;

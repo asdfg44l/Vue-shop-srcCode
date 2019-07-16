@@ -7,6 +7,11 @@ import cart from '@/views/client/Cart'
 import accessories from '@/views/client/Accessories'
 import sendOrder from '@/views/client/sendOrder'
 import motocycle from '@/views/client/motocycle'
+import option from '@/components/client/bottomLink'
+import maintenance from '@/views/client/maintenance'
+import safetyDrive from '@/views/client/safetyDrive'
+import question from '@/views/client/question'
+import recallCar from '@/views/client/recallCar'
 
 // dashboard
 import Login from '@/views/dashboard/Login'
@@ -54,6 +59,33 @@ export default new Router({
           path: '/checkout/:orderID',
           name: 'userOrder',
           component: CustomCheckout,
+        },
+      ]
+    },
+    {
+      path: '/option',
+      name: 'option',
+      component: option,
+      children: [
+        {
+          path: '/option/maintenance',
+          name: 'maintenance',
+          component: maintenance,
+        },
+        {
+          path: '/option/safetyDrive',
+          name: 'safetyDrive',
+          component: safetyDrive,
+        },
+        {
+          path: '/option/question',
+          name: 'question',
+          component: question,
+        },
+        {
+          path: '/option/recallCar',
+          name: 'recallCar',
+          component: recallCar,
         },
       ]
     },
