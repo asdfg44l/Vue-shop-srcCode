@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="banner" :style="{height: innerHeight}">
+    <div class="banner">
       <div class="banner-cover"></div>
       <div class="banner-content position-relative">
           <Navbar></Navbar>
@@ -108,7 +108,6 @@ import story2 from '@/assets/img/tiny/story002.jpg'
 export default {
   data(){
     return{
-      innerHeight: '',
       story1,
       story2
     };
@@ -118,14 +117,14 @@ export default {
     scrollIn(e){
       var target= e.path[1].attributes.href.value;
       var targetPos= $(target).offset().top;
-      $('html, body').animate({scrollTop: targetPos-50}, 1000);
+      $('html, body').animate({scrollTop: targetPos-45}, 1000);
     }
   },
-  created() {
-    this.innerHeight= window.innerHeight + "px";
-    window.onresize=function(){
-      this.innerHeight= window.innerHeight + "px";
-    };
+  mounted() {
+    // this.innerHeight= window.innerHeight + "px";
+    // window.onresize=function(){
+    //   this.innerHeight= window.innerHeight + "px";
+    // };
 
     $(window).scroll(function(){
         //使用者移動多少距離
