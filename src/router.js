@@ -26,10 +26,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path:'*',
-      redirect: '/index'
-    },
+    
     {
       path: '/index',
       name: 'index',
@@ -134,6 +131,10 @@ export default new Router({
           component: orders,
         },
       ]
+    },
+    {
+      path:'*',
+      redirect: {name: 'index'}
     },
   ]
 })

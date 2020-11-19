@@ -4,7 +4,7 @@
         <div class="container-fluid my-3">
             <div id="Motocyclecarousel" class="carousel slide" data-pause="hover">  
                 <div class="carousel-inner">
-                    <div class="carousel-item active" data-content="sv650">
+                    <div class="carousel-item active" data-content="Street">
                         <img src="~@/assets/img/tiny/sv650-01.svg"  class="d-block mx-auto">
                     </div>
                     <div class="carousel-item" data-content="modern">
@@ -105,7 +105,7 @@ export default {
     data(){
         return {
             motoFormate: {
-                sv650:{
+                Street:{
                     name: "SV650",
                     category: "Street",
                     capacity: "645",
@@ -154,7 +154,7 @@ export default {
     },
     created() {
         this.getMotocycles();   
-        this.currentPic= this.motoFormate.sv650;
+        this.currentPic= this.motoFormate.Street;
     },
     mounted(){
         const vm= this;
@@ -164,9 +164,11 @@ export default {
            var name= event.relatedTarget.dataset['content'];
            $(".introContent").removeClass("switchIn");
            if(storeState.motocycles){
+               
                const currentItem= storeState.motocycles.find((item) => {
                    return item.description === name ;
                });
+               console.log(currentItem)
                vm.$store.commit('CARTID', currentItem.id);             
            }
            setTimeout(function(){
