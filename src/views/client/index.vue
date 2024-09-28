@@ -23,7 +23,7 @@
       </div>
     </div>
   
-    <h2 class="text-center my-5" id="story">品牌故事</h2>
+    <h2 class="text-center my-5" ref="storyRef">品牌故事</h2>
     <div class="company-intro container">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -114,18 +114,12 @@ export default {
   },
 
   methods: {
-    scrollIn(e){
-      var target= e.path[1].attributes.href.value;
-      var targetPos= $(target).offset().top;
-      $('html, body').animate({scrollTop: targetPos-45}, 1000);
+    scrollIn(){      
+      const scrollDistance = this.$refs.storyRef.offsetTop - 48 // 3rem
+      window.scrollTo({ top: scrollDistance, behavior: 'smooth' })
     }
   },
   mounted() {
-    // this.innerHeight= window.innerHeight + "px";
-    // window.onresize=function(){
-    //   this.innerHeight= window.innerHeight + "px";
-    // };
-
     $(window).scroll(function(){
         //使用者移動多少距離
         var scrollPos= $(window).scrollTop();
