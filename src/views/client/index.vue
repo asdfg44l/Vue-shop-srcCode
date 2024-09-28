@@ -102,8 +102,8 @@
 import $ from 'jquery';
 
 // background image
-import story1 from '@/assets/img/tiny/story001.jpg'
-import story2 from '@/assets/img/tiny/story002.jpg'
+import story1 from '@/assets/img/tiny/story001.webp'
+import story2 from '@/assets/img/tiny/story002.webp'
 
 export default {
   data(){

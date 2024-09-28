@@ -5,16 +5,16 @@
             <div id="Motocyclecarousel" class="carousel slide" data-pause="hover">  
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-content="Street">
-                        <img src="~@/assets/img/tiny/sv650-01.svg"  class="d-block mx-auto">
+                        <img src="~@/assets/img/tiny/sv650-01.webp"  class="d-block mx-auto">
                     </div>
                     <div class="carousel-item" data-content="modern">
-                        <img src="~@/assets/img/tiny/modern.jpg"  class="d-block mx-auto">
+                        <img src="~@/assets/img/tiny/modern.webp"  class="d-block mx-auto">
                     </div>
                     <div class="carousel-item" data-content="fierex">
-                        <img src="~@/assets/img/tiny/fierex.jpg"  class="d-block mx-auto">
+                        <img src="~@/assets/img/tiny/fierex.webp"  class="d-block mx-auto">
                     </div>
                     <div class="carousel-item" data-content="elegant">
-                        <img src="~@/assets/img/tiny/elegant.jpg"  class="d-block mx-auto">
+                        <img src="~@/assets/img/tiny/elegant.webp"  class="d-block mx-auto">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#Motocyclecarousel" role="button" data-slide="prev">
