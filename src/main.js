@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import axios from 'axios';
+import { instance } from "@/utils/axios"
 import VueAxios from 'vue-axios';
 import VeeValidate from 'vee-validate';
 import VueI18n from 'vue-i18n';  //語言選擇
@@ -17,9 +17,8 @@ import router from './router'
 import store from './store'
 
 Vue.config.productionTip = false;
-axios.defaults.withCredentials= true;
 
-Vue.use(VueAxios, axios);
+Vue.use(VueAxios, instance);
 Vue.use(VueI18n);
 //表單驗證，更改語言
 const i18n = new VueI18n({
@@ -51,15 +50,11 @@ new Vue({
 router.beforeEach((to, from, next) => {
   //確認該分頁是否需要驗證
   if(to.meta.requiresAuth){
-    //使用 api 來確認使用者是否已經登入
-    const api=`${process.env.VUE_APP_APIPATH}/api/user/check`;
-    axios.post(api).then((response) => {
-      if(response.data.success){
-        next();
-      }else{
-        next({path:"/login"})
-      }
-    })
+    if(localStorage.getItem('token')) {
+      next()
+    } else {
+      next({path:"/login"})
+    }
   }else{
     next();
   }

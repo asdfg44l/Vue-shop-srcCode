@@ -28,15 +28,18 @@ export default {
       user:{
         username:'',
         password:'',
+        confirm_password: ''
       }
     }
   },
   methods: {
     userLogin(){
       const api=`${process.env.VUE_APP_APIPATH}/admin/signin`;
-      const vm=this;
-      this.$http.post(api, vm.user).then((response) => {
+      this.user.confirm_password = this.user.password
+      this.$http.post(api, this.user).then((response) => {
         if(response.data.success){
+          this.$http.defaults.headers.Authorization = response.data.token
+          localStorage.setItem("token", response.data.token)
           this.$router.push('/admin/product');
         }
       })
